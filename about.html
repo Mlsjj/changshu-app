@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>关于我们 - 常数空间</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            accent: '#FF61BF',
+            dark: '#14171A', // X平台主深色
+            light: '#F5F8FA', // 浅背景色
+            gray: {
+              300: '#AAB8C2',
+              400: '#8899A6',
+              500: '#657786',
+              700: '#444B54',
+              800: '#1C2023',
+              900: '#14171A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* 渐变文字工具类 - 匹配蓝→紫→洋红需求 */
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 按钮渐变背景 */
+      .bg-gradient-primary {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 通用按钮反馈 */
+      .btn-effect {
+        transition: all 0.2s ease;
+      }
+      .btn-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+      }
+      .btn-effect:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      /* 社交图标hover渐变 */
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+      .social-hover:hover {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        color: white !important;
+        transform: translateY(-2px);
+      }
+      /* 链接渐变下划线 */
+      .link-grad {
+        position: relative;
+      }
+      .link-grad::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        transition: width 0.3s ease;
+      }
+      .link-grad:hover::after {
+        width: 100%;
+      }
+      /* 渐入动画 */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      /* 主题切换过渡效果 */
+      .theme-transition {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition * {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition body {
+        transition: background 0.8s ease-in-out;
+      }
+      /* 科技感背景 */
+      .bg-gradient-dark {
+        position: relative;
+        background: linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+      }
+      .bg-gradient-dark::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          radial-gradient(circle, rgba(22, 93, 255, 0.01) 1px, transparent 1px),
+          radial-gradient(circle, rgba(123, 97, 255, 0.01) 1px, transparent 1px),
+          radial-gradient(circle, rgba(255, 97, 191, 0.01) 1px, transparent 1px);
+        background-size: 80px 80px, 100px 100px, 120px 120px;
+        background-position: 0 0, 20px 20px, 40px 40px;
+        animation: dotFloat 20s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      @keyframes dotFloat {
+        0%, 100% {
+          transform: translateY(0) scale(1);
+        }
+        25% {
+          transform: translateY(-2px) scale(1.01);
+        }
+        50% {
+          transform: translateY(0) scale(1);
+        }
+        75% {
+          transform: translateY(2px) scale(0.99);
+        }
+      }
+      /* 平滑滚动 */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 滚动条美化 */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #14171A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0.8;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark text-light min-h-screen flex flex-col">
+  <!-- 顶部导航栏 - 融合X/YouTube形态，简洁大气 -->
+  <header class="sticky top-0 z-50 bg-dark/70 backdrop-blur-md border-b border-gray-800/50 py-2 px-4 md:px-6 rounded-b-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- 品牌logo - 常数空间渐变文字 -->
+      <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-gradient" data-lang="welcome">常数空间</h1>
+      <!-- 导航链接 - 服务条款/隐私申明/联系我们/关于我们 -->
+      <nav class="hidden md:flex gap-4 items-center">
+        <a href="index.html" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="homeLink">首页</a>
+        <a href="tools.html" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="toolsLink">工具</a>
+        <a href="about.html" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="aboutLink">关于我们</a>
+        <a href="#" onclick="showTerms()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact()" class="text-gray-400 link-grad hover:text-white text-sm" data-lang="contactUs">联系我们</a>
+        <!-- 语言选择 -->
+        <!-- 模式切换按钮 -->
+        <button id="themeToggle" class="text-gray-400 hover:text-white p-2 rounded-full transition-all duration-300">
+          <i class="fa fa-moon-o text-lg"></i>
+        </button>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-400 hover:text-white text-xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-dark border-t border-gray-800/50 mt-2 py-2">
+      <div class="container mx-auto px-4 flex flex-col gap-2">
+        <a href="index.html" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="homeLink">首页</a>
+        <a href="tools.html" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="toolsLink">工具</a>
+        <a href="about.html" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="aboutLink">关于我们</a>
+        <a href="#" onclick="showTerms(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="termsOfService">服务条款</a>
+        <a href="#" onclick="showPrivacy(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="privacyPolicy">隐私申明</a>
+        <a href="#" onclick="showContact(); toggleMobileMenu()" class="text-gray-400 link-grad hover:text-white py-1 text-sm" data-lang="contactUs">联系我们</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主要内容 -->
+  <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+    <!-- 关于我们标题 -->
+    <section class="text-center mb-16 fade-in">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gradient" data-lang="aboutUs">关于我们</h2>
+      <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto" data-lang="aboutSubtitle">由UNI工作室设计开发，致力于为用户提供安全、高效的工具服务</p>
+    </section>
+
+    <!-- 关于我们内容 -->
+    <section class="max-w-4xl mx-auto space-y-12">
+      <!-- 团队介绍 -->
+      <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700 fade-in">
+        <h3 class="text-xl font-bold mb-4 text-white" data-lang="teamIntroduction">团队介绍</h3>
+        <p class="text-gray-300 mb-4" data-lang="teamDescription">
+          UNI工作室是一支专注于前端开发和用户体验设计的团队，我们致力于创建高质量、用户友好的web应用。
+          我们相信技术应该为用户服务，通过创新的设计和高效的实现，为用户带来更好的体验。
+        </p>
+        <p class="text-gray-300" data-lang="teamMission">
+          我们的使命是通过技术创新，简化用户的日常工作，提高效率，同时确保用户数据的安全性和隐私保护。
+        </p>
+      </div>
+
+      <!-- 项目愿景 -->
+      <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700 fade-in">
+        <h3 class="text-xl font-bold mb-4 text-white" data-lang="projectVision">项目愿景</h3>
+        <p class="text-gray-300 mb-4" data-lang="visionDescription">
+          常数空间是我们的旗舰项目，旨在为用户提供一站式的在线工具集，涵盖文本处理、数据转换、创意设计等多个领域。
+          我们希望通过这个项目，为用户打造一个安全、高效、易用的在线工作环境。
+        </p>
+        <p class="text-gray-300" data-lang="visionGoal">
+          我们的目标是将常数空间打造成用户首选的在线工具平台，通过持续的创新和优化，满足用户不断变化的需求。
+        </p>
+      </div>
+
+      <!-- 核心价值观 -->
+      <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700 fade-in">
+        <h3 class="text-xl font-bold mb-4 text-white" data-lang="coreValues">核心价值观</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="flex items-start gap-3">
+            <div class="text-primary text-xl mt-1"><i class="fa fa-shield"></i></div>
+            <div>
+              <h4 class="font-semibold text-white mb-1" data-lang="valuePrivacy">隐私保护</h4>
+              <p class="text-gray-400 text-sm" data-lang="valuePrivacyDesc">始终将用户隐私放在首位，所有数据仅在本地处理</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary text-xl mt-1"><i class="fa fa-lightbulb-o"></i></div>
+            <div>
+              <h4 class="font-semibold text-white mb-1" data-lang="valueInnovation">创新精神</h4>
+              <p class="text-gray-400 text-sm" data-lang="valueInnovationDesc">不断探索新技术，为用户提供更好的解决方案</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary text-xl mt-1"><i class="fa fa-users"></i></div>
+            <div>
+              <h4 class="font-semibold text-white mb-1" data-lang="valueUserCentric">用户至上</h4>
+              <p class="text-gray-400 text-sm" data-lang="valueUserCentricDesc">以用户需求为导向，持续优化产品体验</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="text-primary text-xl mt-1"><i class="fa fa-code"></i></div>
+            <div>
+              <h4 class="font-semibold text-white mb-1" data-lang="valueQuality">品质追求</h4>
+              <p class="text-gray-400 text-sm" data-lang="valueQualityDesc">注重细节，追求卓越，打造高品质产品</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 联系我们 -->
+      <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700 fade-in">
+        <h3 class="text-xl font-bold mb-4 text-white" data-lang="contactUs">联系我们</h3>
+        <p class="text-gray-300 mb-4" data-lang="contactDescription">
+          如果您对我们的产品有任何问题或建议，欢迎随时联系我们。我们会认真对待每一条反馈，不断改进我们的产品。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#" onclick="showContact()" class="inline-block bg-gradient-primary text-white rounded-lg px-6 py-3 btn-effect text-center">
+            <i class="fa fa-envelope mr-2"></i>
+            <span data-lang="sendMessage">发送消息</span>
+          </a>
+          <a href="tools.html" class="inline-block bg-gray-800 text-gray-300 rounded-lg px-6 py-3 btn-effect hover:bg-gray-700 hover:text-white text-center">
+            <i class="fa fa-tools mr-2"></i>
+            <span data-lang="exploreTools">探索工具</span>
+          </a>
+          <a href="web-index.html" class="inline-block bg-gray-800 text-gray-300 rounded-lg px-6 py-3 btn-effect hover:bg-gray-700 hover:text-white text-center">
+            <i class="fa fa-globe mr-2"></i>
+            <span data-lang="webVersion">网页版</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部栏 - 社交图标+版权 -->
+  <!-- 移动端底部导航栏 -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 backdrop-blur-lg bg-gray-900/80 border-t border-gray-800/50 z-50 shadow-lg rounded-t-2xl">
+    <div class="flex justify-around items-center h-20">
+      <a href="index.html" class="flex flex-col items-center justify-center flex-1 text-gray-400 hover:text-primary transition-all duration-300 py-3">
+        <i class="fa fa-home text-xl"></i>
+        <span class="text-xs mt-1 font-medium">首页</span>
+      </a>
+      <a href="tools.html" class="flex flex-col items-center justify-center flex-1 text-gray-400 hover:text-primary transition-all duration-300 py-3">
+        <i class="fa fa-wrench text-xl"></i>
+        <span class="text-xs mt-1 font-medium">工具</span>
+      </a>
+      <a href="about.html" class="flex flex-col items-center justify-center flex-1 text-primary transition-all duration-300 py-3">
+        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-1">
+          <i class="fa fa-info-circle text-xl"></i>
+        </div>
+        <span class="text-xs mt-1 font-medium">关于</span>
+      </a>
+    </div>
+  </nav>
+  
+  <footer class="bg-gray-900 border-t border-gray-800 py-4 px-4">
+    <div class="container mx-auto max-w-4xl">
+      <!-- 社交图标 -->
+      <div class="flex justify-center gap-3 mb-3">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-twitter"></i> <!-- X平台图标 -->
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-youtube-play"></i> <!-- YouTube图标 -->
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-instagram"></i> <!-- Instagram图标 -->
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-hover text-gray-400 text-base w-8 h-8 rounded-full flex items-center justify-center border border-gray-700">
+          <i class="fa fa-facebook"></i> <!-- Facebook图标 -->
+        </a>
+      </div>
+      <!-- 底部链接+版权 -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-2 text-gray-500 text-xs">
+        <a href="index.html" class="link-grad" data-lang="homeLink">首页</a>
+        <a href="tools.html" class="link-grad" data-lang="toolsLink">工具</a>
+        <a href="about.html" class="link-grad" data-lang="aboutLink">关于我们</a>
+        <a href="#" onclick="showTerms()" class="link-grad" data-lang="termsLink">服务条款</a>
+        <a href="#" onclick="showPrivacy()" class="link-grad" data-lang="privacyLink">隐私申明</a>
+        <span data-lang="copyright">© 2026 常数空间 | UNI工作室 版权所有</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 隐私声明弹窗 - 优化版 -->
+  <div id="privacyModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col border border-gray-700 shadow-2xl shadow-primary/10">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="privacyModalTitle">隐私声明</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect p-1 rounded-full hover:bg-gray-800">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 - 带独立滚动条 -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-grow text-gray-300 leading-relaxed text-sm sm:text-base" id="privacyModalContent">
+        <!-- 内容将通过JavaScript动态填充 -->
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <button id="rejectBtn" class="px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white w-full sm:w-auto transition-all duration-300">
+          拒绝
+        </button>
+        <button id="agreeBtn" class="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-primary text-white rounded-lg btn-effect w-full sm:w-auto transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
+          同意
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服务条款弹窗 -->
+  <div id="termsModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-2xl max-h-[90vh] sm:max-h-[80vh] flex flex-col border border-gray-700">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="termsModalTitle">服务条款</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 - 带独立滚动条 -->
+      <div class="p-4 sm:p-6 overflow-y-auto flex-grow text-gray-300 leading-relaxed text-sm sm:text-base" id="termsModalContent">
+        <!-- 内容将通过JavaScript动态填充 -->
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <button class="close-modal px-4 sm:px-6 py-2 sm:py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white w-full sm:w-auto" data-lang="close">
+          关闭
+        </button>
+        <button id="termsAgreeBtn" class="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-primary text-white rounded-lg btn-effect w-full sm:w-auto" data-lang="agree">
+          同意
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联系我们弹窗 -->
+  <div id="contactModal" class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 hidden">
+    <div class="bg-gray-900 rounded-2xl w-full max-w-md flex flex-col border border-gray-700">
+      <!-- 弹窗标题 -->
+      <div class="p-4 sm:p-6 border-b border-gray-800 flex justify-between items-center">
+        <h3 class="text-lg sm:text-xl font-bold text-white" data-lang="contactModalTitle">联系我们</h3>
+        <button class="close-modal text-gray-400 hover:text-white text-xl btn-effect">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <!-- 弹窗内容 -->
+      <div class="p-4 sm:p-6 text-gray-300">
+        <p class="mb-4" data-lang="contactInfo">
+          您可以通过以下方式联系我们：
+        </p>
+        <div class="space-y-2 mb-6">
+          <p class="flex items-center gap-2">
+            <i class="fa fa-envelope text-primary"></i>
+            <span>jonessj893@gmail.com</span>
+          </p>
+        </div>
+        <p class="text-sm text-gray-400" data-lang="contactNote">
+          我们会在24小时内回复您的消息
+        </p>
+      </div>
+      <!-- 弹窗按钮 -->
+      <div class="p-4 sm:p-6 border-t border-gray-800 flex justify-end">
+        <button class="close-modal px-6 py-3 bg-gray-800 text-gray-300 rounded-lg btn-effect hover:bg-gray-700 hover:text-white">
+          <span data-lang="close">关闭</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript 交互逻辑 -->
+  <script>
+    // 获取DOM元素
+    const privacyModal = document.getElementById('privacyModal');
+    const termsModal = document.getElementById('termsModal');
+    const contactModal = document.getElementById('contactModal');
+    const agreeBtn = document.getElementById('agreeBtn');
+    const termsAgreeBtn = document.getElementById('termsAgreeBtn');
+    const rejectBtn = document.getElementById('rejectBtn');
+    const closeButtons = document.querySelectorAll('.close-modal');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    // 移动端菜单切换
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // 显示隐私声明
+    function showPrivacy() {
+      privacyModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      // 填充隐私声明内容
+      document.getElementById('privacyModalContent').innerHTML = `
+        <p class="mb-4 text-accent font-medium text-lg">重要提示：使用常数空间前，请您仔细阅读以下隐私声明，点击「同意」即表示您接受本声明全部内容。常数空间是常数空间。</p>
+        <p class="mb-4"><strong class="text-white">核心原则：</strong>常数空间始终将用户隐私放在首位，<span class="font-medium">绝不窃取、收集、存储、使用或转让任何用户隐私数据</span>，所有用户在常数空间的操作行为及输入内容均仅在本地设备处理，不会上传至任何服务器，您的所有数据均由您自行掌控。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">1. 数据收集政策</h4>
+        <p class="mb-4">常数空间不会主动收集您的任何个人身份信息（姓名、手机号、邮箱、身份证号、住址等）、设备信息（设备型号、系统版本、IP地址等）、行为信息（浏览记录、操作记录、输入内容等）及其他任何可识别个人身份的隐私数据。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">2. 数据使用规则</h4>
+        <p class="mb-4">因常数空间不收集任何用户数据，故不存在数据使用、分析、共享、转让、披露等行为。任何第三方均无法通过常数空间获取您的任何相关信息，我们也不会向任何机构、企业或个人提供用户数据。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">3. 本地数据处理</h4>
+        <p class="mb-4">您在常数空间的所有输入内容、操作设置均仅存储在您的本地设备中，常数空间不会对该类数据进行任何形式的上传或同步。您可随时删除本地存储的相关数据，操作权完全归属于您。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">4. 安全保障措施</h4>
+        <p class="mb-4">我们采用多层安全防护技术，保障常数空间的运行安全，防止任何未授权的访问、篡改、攻击等行为，确保常数空间不会成为窃取用户数据的渠道。同时，我们会持续更新安全策略，及时修复潜在安全漏洞。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">5. 隐私声明的遵守</h4>
+        <p class="mb-4">我们严格遵守《中华人民共和国个人信息保护法》《网络安全法》等相关法律法规，恪守隐私保护承诺，若因法律法规更新需要调整本声明，我们将及时在平台发布更新版本，并保留原有核心隐私保护原则。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">6. 用户权利</h4>
+        <p class="mb-6">您有权随时查看本隐私声明的最新版本，有权拒绝接受本声明（拒绝后将无法使用常数空间服务），有权随时停止使用常数空间并删除本地相关数据。若您发现常数空间存在违反本隐私声明的行为，可随时向我们反馈。</p>
+        <p class="text-gray-400 text-sm">© 2026 常数空间 | UNI工作室</p>
+      `;
+    }
+
+    // 显示服务条款
+    function showTerms() {
+      termsModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      // 填充服务条款内容
+      document.getElementById('termsModalContent').innerHTML = `
+        <p class="mb-4 text-accent font-medium text-lg">重要提示：使用常数空间前，请您仔细阅读以下服务条款，点击「同意」即表示您接受本条款全部内容。</p>
+        <p class="mb-4">欢迎使用常数空间（以下简称"常数空间"）提供的服务，本服务由UNI工作室（以下简称"我们"）提供。使用常数空间服务，即表示您同意接受本服务条款的全部内容，若您不同意，请勿使用本服务。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">1. 服务使用权限</h4>
+        <p class="mb-4">我们授予您非独占、不可转让的有限权限，以按照本条款使用常数空间服务。您承诺仅将本服务用于合法目的，不得利用本服务从事任何违法、违规或损害他人合法权益的行为。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">2. 用户行为规范</h4>
+        <p class="mb-4">您在使用本服务时，不得进行任何干扰、破坏常数空间正常运行的行为，包括但不限于恶意攻击、植入病毒、滥用系统资源等；不得传播违法、色情、暴力、诽谤等不良信息。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">3. 知识产权</h4>
+        <p class="mb-4">常数空间及其相关服务中包含的所有内容（包括但不限于文字、图片、音频、视频、代码、界面设计、商标等）均受知识产权法律法规的保护，未经我们书面许可，您不得复制、修改、传播、出售或用于其他商业目的。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">4. 免责声明</h4>
+        <p class="mb-4">我们尽力确保服务的稳定性和可靠性，但不保证服务不会中断或出错。因不可抗力、网络故障、系统维护等原因导致服务暂时无法使用的，我们不承担相应责任。您应自行承担使用本服务可能产生的风险。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">5. 条款修改</h4>
+        <p class="mb-4">我们有权根据法律法规的变更或业务发展需要，随时修改本服务条款。修改后的条款将在常数空间平台发布，您继续使用本服务即表示接受修改后的条款。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">6. 终止服务</h4>
+        <p class="mb-4">若您违反本服务条款的任何规定，我们有权立即终止向您提供服务，并不承担任何责任。您也可以随时停止使用本服务。</p>
+        <h4 class="text-white font-semibold mt-6 mb-3">7. 法律适用</h4>
+        <p class="mb-6">本服务条款的订立、执行、解释及争议的解决均适用中华人民共和国法律。如就本条款发生任何争议，双方应首先通过友好协商解决；协商不成的，任何一方均有权将争议提交至有管辖权的人民法院诉讼解决。</p>
+        <p class="text-gray-400 text-sm">© 2026 常数空间 | UNI工作室</p>
+      `;
+    }
+
+    // 显示联系我们
+    function showContact() {
+      contactModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 同意按钮 - 关闭弹窗，恢复页面滚动
+    agreeBtn.addEventListener('click', () => {
+      privacyModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      // 可添加后续逻辑，如存储用户同意状态
+      localStorage.setItem('privacyAgreed', 'true');
+    });
+
+    // 服务条款同意按钮 - 关闭弹窗，恢复页面滚动
+    termsAgreeBtn.addEventListener('click', () => {
+      termsModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      // 可添加后续逻辑，如存储用户同意状态
+      localStorage.setItem('termsAgreed', 'true');
+    });
+
+    // 拒绝按钮 - 提示并刷新页面（或跳转到空白页）
+    rejectBtn.addEventListener('click', () => {
+      alert('您拒绝了隐私声明，将无法使用常数空间服务');
+      window.location.reload();
+    });
+
+    // 关闭按钮 - 仅关闭弹窗，不记录同意状态（再次进入仍会弹出）
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        privacyModal.classList.add('hidden');
+        termsModal.classList.add('hidden');
+        contactModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // 移动端菜单按钮点击事件
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+    // 渐入动画
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.2}s`;
+        element.classList.add('fade-in');
+      });
+    });
+  </script>
+</body>
+</html>

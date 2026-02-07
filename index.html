@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>常数空间 - 官方平台</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            accent: '#FF61BF',
+            dark: '#14171A', // X平台主深色
+            light: '#F5F8FA', // 浅背景色
+            gray: {
+              300: '#AAB8C2',
+              400: '#8899A6',
+              500: '#657786',
+              700: '#444B54',
+              800: '#1C2023',
+              900: '#14171A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* 渐变文字工具类 - 匹配蓝→紫→洋红需求 */
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 按钮渐变背景 */
+      .bg-gradient-primary {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 通用按钮反馈 */
+      .btn-effect {
+        transition: all 0.2s ease;
+      }
+      .btn-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+      }
+      .btn-effect:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      /* 社交图标hover渐变 */
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+      .social-hover:hover {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        color: white !important;
+        transform: translateY(-2px);
+      }
+      /* 链接渐变下划线 */
+      .link-grad {
+        position: relative;
+      }
+      .link-grad::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        transition: width 0.3s ease;
+      }
+      .link-grad:hover::after {
+        width: 100%;
+      }
+      /* 渐入动画 */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* 动画效果 */
+      .animation-bounce {
+        animation: bounce 1s ease infinite;
+      }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        60% { transform: translateY(-10px); }
+      }
+      
+      .animation-pulse {
+        animation: pulse 1s ease infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+      
+      .animation-spin {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .animation-fade {
+        animation: fade 1s ease infinite;
+      }
+      @keyframes fade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      /* 缓慢脉冲动画 */
+      .animate-pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+      }
+      @keyframes pulse-slow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+      /* 主题切换过渡效果 */
+      .theme-transition {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition * {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition body {
+        transition: background 0.8s ease-in-out;
+      }
+      .theme-transition .bg-gradient-dark,
+      .theme-transition .bg-gradient-light {
+        transition: background 0.8s ease-in-out;
+      }
+      /* 科技感扫描线动画 */
+      .animate-scan {
+        animation: scan 8s linear infinite;
+      }
+      @keyframes scan {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+      
+      .animation-slide {
+        animation: slide 1s ease infinite;
+      }
+      @keyframes slide {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+      }
+      
+      .animation-scale {
+        animation: scale 1s ease infinite;
+      }
+      @keyframes scale {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+      /* 浮动动画 */
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        25% {
+          transform: translateY(-10px) translateX(5px);
+        }
+        50% {
+          transform: translateY(0px) translateX(10px);
+        }
+        75% {
+          transform: translateY(10px) translateX(5px);
+        }
+      }
+      /* 动画延迟 */
+      .animation-delay-1000 {
+        animation-delay: 1s;
+      }
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      .animation-delay-3000 {
+        animation-delay: 3s;
+      }
+      .animation-delay-4000 {
+        animation-delay: 4s;
+      }
+      /* 背景渐变效果 - 夜间模式 */
+      .bg-gradient-dark {
+        background: linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+        background-image: 
+          radial-gradient(circle at 25% 25%, rgba(22, 93, 255, 0.02) 1px, transparent 1px),
+          radial-gradient(circle at 75% 75%, rgba(22, 93, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+        background-size: 20px 20px, 20px 20px, 100% 100%;
+      }
+      /* 背景渐变效果 - 日间模式 */
+      .bg-gradient-light {
+        background: linear-gradient(135deg, #F5F7FA 0%, #E4E7EB 100%);
+        background-image: 
+          radial-gradient(circle at 25% 25%, rgba(22, 93, 255, 0.05) 1px, transparent 1px),
+          radial-gradient(circle at 75% 75%, rgba(22, 93, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(135deg, #F5F7FA 0%, #E4E7EB 100%);
+        background-size: 20px 20px, 20px 20px, 100% 100%;
+      }
+      /* 动态蓝紫色渐变光带动画 */
+      .section-inner-shadow {
+        position: relative;
+        overflow: hidden;
+      }
+      /* 内阴影效果 */
+      .section-inner-shadow::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+        z-index: 1;
+      }
+      /* 微妙的动态光带效果 */
+      .section-inner-shadow::after {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 300%;
+        height: 300%;
+        background: linear-gradient(
+          45deg,
+          transparent 0%,
+          rgba(22, 93, 255, 0.02) 25%,
+          rgba(123, 97, 255, 0.02) 50%,
+          rgba(255, 97, 191, 0.02) 75%,
+          transparent 100%
+        );
+        animation: lightFlow 120s linear infinite;
+        pointer-events: none;
+        filter: blur(120px);
+        z-index: 0;
+      }
+      @keyframes lightFlow {
+        0% {
+          transform: rotate(0deg) translateX(0) translateY(0);
+        }
+        100% {
+          transform: rotate(360deg) translateX(10%) translateY(10%);
+        }
+      }
+      
+      /* 板块间细线条分隔 */
+      section {
+        position: relative;
+      }
+      section:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(22, 93, 255, 0.3) 25%,
+          rgba(123, 97, 255, 0.3) 50%,
+          rgba(255, 97, 191, 0.3) 75%,
+          transparent 100%
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      /* 动态点阵效果 */
+      .bg-gradient-dark {
+        position: relative;
+      }
+      .bg-gradient-dark::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: 
+          radial-gradient(circle, rgba(22, 93, 255, 0.01) 1px, transparent 1px),
+          radial-gradient(circle, rgba(123, 97, 255, 0.01) 1px, transparent 1px),
+          radial-gradient(circle, rgba(255, 97, 191, 0.01) 1px, transparent 1px);
+        background-size: 80px 80px, 100px 100px, 120px 120px;
+        background-position: 0 0, 20px 20px, 40px 40px;
+        animation: dotFloat 20s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      
+      @keyframes dotFloat {
+        0%, 100% {
+          transform: translateY(0) scale(1);
+        }
+        25% {
+          transform: translateY(-2px) scale(1.01);
+        }
+        50% {
+          transform: translateY(0) scale(1);
+        }
+        75% {
+          transform: translateY(2px) scale(0.99);
+        }
+      }
+      /* 弹窗淡入动画 */
+      .modal-fade-in {
+        animation: modalFadeIn 0.5s ease forwards;
+      }
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      /* 弹窗淡出动画 */
+      .modal-fade-out {
+        animation: modalFadeOut 0.3s ease forwards;
+      }
+      @keyframes modalFadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(20px); }
+      }
+      /* 平滑滚动 */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 卡片悬停效果增强 */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(22, 93, 255, 0.2);
+      }
+      /* 渐变边框效果 */
+      .gradient-border {
+        position: relative;
+        border-radius: 0.5rem;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        z-index: -1;
+        border-radius: 0.6rem;
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gradient-border:hover::before {
+        opacity: 1;
+      }
+      /* 文字发光效果 */
+      .text-glow {
+        text-shadow: 0 0 10px rgba(22, 93, 255, 0.5), 0 0 20px rgba(22, 93, 255, 0.3);
+      }
+      /* 背景发光效果 */
+      .bg-glow {
+        box-shadow: 0 0 20px rgba(22, 93, 255, 0.3), 0 0 40px rgba(22, 93, 255, 0.1);
+      }
+      
+      /* 缓慢脉冲动画 */
+      .animate-pulse-slow {
+        animation: pulseSlow 3s ease-in-out infinite;
+      }
+      @keyframes pulseSlow {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+      
+      /* 下划线生长动画 */
+      .animate-grow {
+        animation: grow 2s ease-in-out infinite;
+      }
+      @keyframes grow {
+        0%, 100% {
+          width: 32px;
+        }
+        50% {
+          width: 64px;
+        }
+      }
+      /* 滚动条美化 */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #14171A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        opacity: 0.8;
+      }
+      /* 脉冲动画 */
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(22, 93, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(22, 93, 255, 0);
+        }
+      }
+      
+      /* 功能卡片图标动画 */
+      .feature-icon {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: all 0.6s ease-out;
+      }
+      
+      .feature-card.animate .feature-icon {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        animation: iconBounce 1s ease-out forwards;
+      }
+      
+      @keyframes iconBounce {
+        0% {
+          transform: translateY(20px) scale(0.8);
+        }
+        60% {
+          transform: translateY(-10px) scale(1.1);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      
+      /* 图标旋转动画 */
+      .feature-card.animate .feature-icon i {
+        animation: iconRotate 1s ease-out forwards;
+      }
+      
+      @keyframes iconRotate {
+        0% {
+          transform: rotate(0deg) scale(0.8);
+        }
+        100% {
+          transform: rotate(360deg) scale(1);
+        }
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark text-light min-h-screen flex flex-col">
+  <!-- 顶部导航栏 - APP风格，简洁大气 -->
+  <header class="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-xl border-b border-gray-800/30 py-3 px-4 rounded-b-2xl shadow-lg shadow-primary/10">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- 品牌logo - 常数空间渐变文字 -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg">
+          <i class="fa fa-wrench text-white text-lg"></i>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-white">常数空间</h1>
+      </div>
+      <!-- 导航链接 - 服务条款/隐私申明/联系我们 -->
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="tools.html" class="text-gray-300 hover:text-primary transition-colors duration-300 text-sm font-medium">工具</a>
+        <a href="about.html" class="text-gray-300 hover:text-primary transition-colors duration-300 text-sm font-medium">关于</a>
+        <a href="#" onclick="showContact()" class="text-gray-300 hover:text-primary transition-colors duration-300 text-sm font-medium">联系</a>
+        <!-- 模式切换按钮 -->
+        <button id="themeToggle" class="text-gray-400 hover:text-primary p-2 rounded-full transition-all duration-300">
+          <i class="fa fa-moon-o text-lg"></i>
+        </button>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-primary w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-800 transition-all duration-300">
+        <i class="fa fa-bars text-lg"></i>
+      </button>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50 mt-2 py-3 px-4 rounded-b-2xl shadow-xl">
+      <div class="flex flex-col gap-4">
+        <a href="tools.html" class="text-gray-300 hover:text-primary py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">工具</a>
+        <a href="about.html" class="text-gray-300 hover:text-primary py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">关于我们</a>
+        <a href="#" onclick="showTerms(); toggleMobileMenu()" class="text-gray-300 hover:text-primary py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">服务条款</a>
+        <a href="#" onclick="showPrivacy(); toggleMobileMenu()" class="text-gray-300 hover:text-primary py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">隐私申明</a>
+        <a href="#" onclick="showContact(); toggleMobileMenu()" class="text-gray-300 hover:text-primary py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">联系我们</a>
+        <!-- 移动端模式切换 -->
+        <button id="mobileThemeToggle" class="text-gray-300 hover:text-primary flex items-center gap-3 w-full justify-start py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">
+          <i class="fa fa-moon-o"></i>
+          <span>夜间模式</span>
+        </button>
+        <!-- 移动端语言选择 -->
+        <div class="relative">
+          <button id="mobileLanguageBtn" class="text-gray-300 hover:text-primary flex items-center gap-3 w-full justify-start py-3 px-4 rounded-xl hover:bg-gray-800/50 transition-all duration-300 text-base font-medium">
+            <i class="fa fa-globe"></i>
+            <span id="mobileCurrentLanguage">中文</span>
+          </button>
+          <div id="mobileLanguageDropdown" class="absolute left-4 mt-1 w-32 bg-gray-800 rounded-xl shadow-lg hidden z-50">
+            <a href="#" onclick="changeLanguage('zh'); toggleMobileMenu()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-primary">中文</a>
+            <a href="#" onclick="changeLanguage('en'); toggleMobileMenu()" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-primary">English</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="flex-grow">
+    <!-- 首页区域 - APP风格 -->
+    <section id="home" class="px-4 py-12 flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+      <div class="w-full max-w-md mx-auto">
+        <!-- 品牌logo -->
+        <div class="flex flex-col items-center mb-12">
+          <div class="w-24 h-24 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg mb-6">
+            <i class="fa fa-wrench text-white text-3xl"></i>
+          </div>
+          <h1 class="text-3xl font-bold mb-2 text-white">常数空间</h1>
+          <p class="text-gray-400 text-sm">Your Ultimate Toolbox</p>
+        </div>
+        
+        <!-- 快捷工具入口 -->
+        <div class="grid grid-cols-2 gap-4 mb-12">
+          <a href="tools.html#tools" onclick="setTimeout(() => { if (typeof openTool === 'function') openTool('jsonFormatter'); }, 500);" class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-5 border border-gray-700/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex flex-col items-center justify-center">
+            <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-3">
+              <i class="fa fa-code text-primary text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-white">JSON格式化</h3>
+          </a>
+          <a href="tools.html#tools" onclick="setTimeout(() => { if (typeof openTool === 'function') openTool('codeEditor'); }, 500);" class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-5 border border-gray-700/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex flex-col items-center justify-center">
+            <div class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center mb-3">
+              <i class="fa fa-file-code-o text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-white">代码编辑器</h3>
+          </a>
+          <a href="tools.html#tools" onclick="setTimeout(() => { if (typeof openTool === 'function') openTool('passwordGenerator'); }, 500);" class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-5 border border-gray-700/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex flex-col items-center justify-center">
+            <div class="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center mb-3">
+              <i class="fa fa-key text-accent text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-white">密码生成器</h3>
+          </a>
+          <a href="tools.html#tools" onclick="setTimeout(() => { if (typeof openTool === 'function') openTool('colorPicker'); }, 500);" class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-5 border border-gray-700/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 flex flex-col items-center justify-center">
+            <div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-3">
+              <i class="fa fa-paint-brush text-primary text-xl"></i>
+            </div>
+            <h3 class="text-sm font-semibold text-white">颜色选择器</h3>
+          </a>
+        </div>
+        
+        <!-- 核心优势 -->
+        <div class="space-y-4 mb-12">
+          <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 flex items-center">
+            <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
+              <i class="fa fa-shield text-primary text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white mb-1">隐私保护</h3>
+              <p class="text-xs text-gray-400">本地处理，不上传任何数据</p>
+            </div>
+          </div>
+          <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 flex items-center">
+            <div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center mr-4">
+              <i class="fa fa-bolt text-secondary text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white mb-1">高效输入</h3>
+              <p class="text-xs text-gray-400">简洁流畅的操作体验</p>
+            </div>
+          </div>
+          <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 flex items-center">
+            <div class="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center mr-4">
+              <i class="fa fa-globe text-accent text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-white mb-1">多语言支持</h3>
+              <p class="text-xs text-gray-400">支持中英文切换</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 行动按钮 -->
+        <div class="space-y-4">
+          <a href="tools.html" class="block bg-gradient-primary text-white rounded-full px-6 py-4 text-center font-medium">
+            <i class="fa fa-rocket mr-2"></i>浏览全部工具
+          </a>
+          <a href="about.html" class="block bg-transparent border border-gray-700 text-gray-400 rounded-full px-6 py-4 text-center font-medium hover:border-primary hover:text-primary transition-colors duration-300">
+            <i class="fa fa-info-circle mr-2"></i>关于我们
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部导航栏 - 移动端 -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50 z-50 rounded-t-2xl shadow-lg">
+    <div class="grid grid-cols-3 gap-2 py-3 px-4">
+      <a href="index.html" class="flex flex-col items-center justify-center py-2 px-1 rounded-lg bg-gray-800/60 transition-all duration-300">
+        <i class="fa fa-home text-lg mb-1 text-primary"></i>
+        <span class="text-xs text-primary">首页</span>
+      </a>
+      <a href="tools.html" class="flex flex-col items-center justify-center py-2 px-1 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
+        <i class="fa fa-wrench text-lg mb-1 text-gray-400"></i>
+        <span class="text-xs text-gray-400">工具</span>
+      </a>
+      <a href="about.html" class="flex flex-col items-center justify-center py-2 px-1 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
+        <i class="fa fa-info-circle text-lg mb-1 text-gray-400"></i>
+        <span class="text-xs text-gray-400">关于</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-900 border-t border-gray-800 py-6 md:py-8 mt-20">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col items-center justify-center">
+        <div class="flex items-center space-x-2 mb-4">
+          <div class="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center">
+            <i class="fa fa-wrench text-white text-sm"></i>
+          </div>
+          <span class="text-base font-bold text-white">常数空间</span>
+        </div>
+        <p class="text-gray-500 text-xs text-center mb-4">
+          © 2026 常数空间 | UNI工作室. 保留所有权利.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+            <i class="fa fa-github text-sm"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+            <i class="fa fa-twitter text-sm"></i>
+          </a>
+          <a href="#" class="text-gray-500 hover:text-primary transition-colors">
+            <i class="fa fa-linkedin text-sm"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 开屏动画 -->
+  <div id="splashScreen" class="fixed inset-0 bg-dark flex items-center justify-center z-50">
+    <div class="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center animate-pulse">
+      <i class="fa fa-wrench text-white text-2xl"></i>
+    </div>
+  </div>
+
+  <!-- 服务条款弹窗 -->
+  <div id="termsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white" data-lang="termsTitle">服务条款</h3>
+          <button onclick="closeTerms()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <p data-lang="termsContent1">欢迎使用常数空间！本服务条款详细说明了您在使用我们的服务时应遵守的规则和约定。</p>
+          <p data-lang="termsContent2">通过使用常数空间，您同意遵守本服务条款的所有内容。如果您不同意本服务条款的任何部分，您应立即停止使用我们的服务。</p>
+          <p data-lang="termsContent3">我们保留随时修改本服务条款的权利。修改后的条款将在网站上公布，并自公布之日起生效。</p>
+          <p data-lang="termsContent4">如果您有任何疑问或建议，请随时联系我们。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐私政策弹窗 -->
+  <div id="privacyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white" data-lang="privacyTitle">隐私政策</h3>
+          <button onclick="closePrivacy()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <p data-lang="privacyContent1">常数空间非常重视您的隐私保护。本隐私政策详细说明了我们如何收集、使用、存储和保护您的个人信息。</p>
+          <p data-lang="privacyContent2">我们不会收集、存储或分享您的任何个人数据。所有操作均在您的本地设备上完成，确保您的数据安全与隐私权益。</p>
+          <p data-lang="privacyContent3">我们采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保您的使用安全。</p>
+          <p data-lang="privacyContent4">如果您有任何疑问或建议，请随时联系我们。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联系我们弹窗 -->
+  <div id="contactModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-md w-full mx-4">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white" data-lang="contactTitle">联系我们</h3>
+          <button onclick="closeContact()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+              <i class="fa fa-envelope text-primary text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">邮箱</h4>
+              <p class="text-gray-400">jonessj893@gmail.com</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
+              <i class="fa fa-github text-secondary text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">GitHub</h4>
+              <p class="text-gray-400">@changkongjian</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
+              <i class="fa fa-twitter text-accent text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">Twitter</h4>
+              <p class="text-gray-400">@changkongjian</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // 开屏动画
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const splashScreen = document.getElementById('splashScreen');
+        if (splashScreen) {
+          splashScreen.style.display = 'none';
+        }
+      }, 800); // 与CSS动画持续时间保持一致
+
+      // 导航栏滚动效果
+      const nav = document.querySelector('nav');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      // 移动端触摸优化
+      if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+      }
+    });
+
+    // 移动端菜单切换
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // 服务条款弹窗
+    function showTerms() {
+      const termsModal = document.getElementById('termsModal');
+      termsModal.classList.remove('hidden');
+      termsModal.classList.add('modal-fade-in');
+    }
+
+    function closeTerms() {
+      const termsModal = document.getElementById('termsModal');
+      termsModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        termsModal.classList.add('hidden');
+        termsModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 隐私政策弹窗
+    function showPrivacy() {
+      const privacyModal = document.getElementById('privacyModal');
+      privacyModal.classList.remove('hidden');
+      privacyModal.classList.add('modal-fade-in');
+    }
+
+    function closePrivacy() {
+      const privacyModal = document.getElementById('privacyModal');
+      privacyModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        privacyModal.classList.add('hidden');
+        privacyModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 联系我们弹窗
+    function showContact() {
+      const contactModal = document.getElementById('contactModal');
+      contactModal.classList.remove('hidden');
+      contactModal.classList.add('modal-fade-in');
+    }
+
+    function closeContact() {
+      const contactModal = document.getElementById('contactModal');
+      contactModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        contactModal.classList.add('hidden');
+        contactModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 移动端菜单按钮点击事件
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+
+    // 移动端语言选择
+    document.getElementById('mobileLanguageBtn').addEventListener('click', function() {
+      const dropdown = document.getElementById('mobileLanguageDropdown');
+      dropdown.classList.toggle('hidden');
+    });
+
+    // 点击其他区域关闭下拉菜单
+    document.addEventListener('click', function(event) {
+      const mobileLanguageBtn = document.getElementById('mobileLanguageBtn');
+      const mobileLanguageDropdown = document.getElementById('mobileLanguageDropdown');
+      
+      if (!mobileLanguageBtn.contains(event.target) && !mobileLanguageDropdown.contains(event.target)) {
+        mobileLanguageDropdown.classList.add('hidden');
+      }
+    });
+
+    // 语言切换功能
+    let currentLanguage = 'zh';
+    const translations = {
+      zh: {
+        welcome: '常数空间',
+        slogan: '探索无限可能的工具乐园',
+        startUsing: '开始使用',
+        learnMore: '了解更多',
+        bottomDescription: '常数空间致力于为用户提供安全、高效的工具体验，我们始终将用户隐私放在首位，所有操作均在本地设备完成，确保您的数据安全与隐私权益。',
+        coreFeatures: '核心功能',
+        featureLocalProcessing: '本地处理',
+        featureEfficientInput: '高效输入',
+        featureMultilingual: '多语言支持',
+        featureSecurity: '安全保障',
+        featureResponsive: '响应式设计',
+        featurePersonalization: '个性化设置',
+        tryNow: '立即尝试',
+        comparisonTitle: '优势对比',
+        comparisonFeature: '功能特性',
+        comparisonOurProduct: '常数空间',
+        comparisonTraditional: '传统工具',
+        comparisonPrivacy: '数据隐私保护',
+        comparisonPrivacyOur: '本地处理，不上传',
+        comparisonPrivacyTraditional: '可能上传用户数据',
+        comparisonEfficiency: '使用效率',
+        comparisonEfficiencyOur: '智能高效，操作便捷',
+        comparisonEfficiencyTraditional: '功能单一，操作复杂',
+        comparisonMultilingual: '多语言支持',
+        comparisonMultilingualOur: '支持中英文切换',
+        comparisonMultilingualTraditional: '可能仅支持单一语言',
+        comparisonResponsive: '设备适配',
+        comparisonResponsiveOur: '适配各种设备',
+        comparisonResponsiveTraditional: '可能仅支持特定设备',
+        comparisonSecurity: '安全性',
+        comparisonSecurityOur: '多层安全防护',
+        comparisonSecurityTraditional: '基础安全措施',
+        comparisonSummary: '对比总结',
+        comparisonSummaryText: '通过以上对比可以看出，常数空间在数据隐私保护、使用效率、多语言支持、设备适配和安全性等核心方面都具有明显优势。我们致力于为用户提供更安全、更高效、更个性化的工具体验，让每一次使用都成为一种享受。',
+        testimonialsTitle: '用户评价',
+        testimonial1: '常数空间真的很棒！输入体验流畅，而且不用担心数据隐私问题。多语言支持也很实用，推荐给大家。',
+        testimonial1Name: '张先生',
+        testimonial1Title: '软件工程师',
+        testimonial2: '作为一名翻译，我经常需要在中英文之间切换，常数空间的多语言支持功能非常贴心，输入效率大大提高。',
+        testimonial2Name: '李女士',
+        testimonial2Title: '翻译',
+        testimonial3: '隐私保护做得很好，所有数据都在本地处理，不用担心信息泄露。界面简洁美观，使用起来非常顺手。',
+        testimonial3Name: '王先生',
+        testimonial3Title: '数据分析师',
+        faqTitle: '常见问题',
+        faq1Question: '常数空间如何保护我的隐私？',
+        faq1Answer: '常数空间采用本地处理机制，所有输入内容仅在您的设备上处理，不会上传至任何服务器。我们不会收集、存储或分享您的任何个人数据，确保您的隐私安全。',
+        faq2Question: '常数空间支持哪些语言？',
+        faq2Answer: '目前常数空间支持中文和英文两种语言，您可以在设置中随时切换语言。我们计划在未来版本中添加更多语言支持。',
+        faq3Question: '常数空间可以在哪些设备上使用？',
+        faq3Answer: '常数空间采用响应式设计，支持在各种设备上使用，包括电脑、平板和手机。只要您的设备有浏览器，就可以访问并使用常数空间。',
+        faq4Question: '常数空间是免费的吗？',
+        faq4Answer: '是的，常数空间是完全免费的。我们致力于为用户提供高质量的输入工具，不收取任何费用，也不会在界面中显示广告。',
+        faq5Question: '如何联系常数空间团队？',
+        faq5Answer: '您可以通过官方邮箱 jonessj893@gmail.com 联系我们，或者在网站底部点击"联系我们"按钮发送消息。我们会在24小时内回复您的问题。',
+        techFeaturesTitle: '技术特点',
+        techModernFrontend: '现代前端技术',
+        techModernFrontendDesc: '采用HTML5、CSS3和JavaScript ES6+开发，使用Tailwind CSS实现响应式设计，确保在各种设备上的良好体验',
+        techModularArchitecture: '模块化架构',
+        techModularArchitectureDesc: '采用模块化设计，代码结构清晰，易于维护和扩展，为未来功能升级做好准备',
+        techPerformanceOptimization: '性能优化',
+        techPerformanceOptimizationDesc: '经过精心优化，加载速度快，运行流畅，即使在低配置设备上也能良好运行',
+        techSecurityAssurance: '安全保障',
+        techSecurityAssuranceDesc: '采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保用户数据安全',
+        futurePlanning: '未来规划',
+        futurePlanningDesc: '常数空间正在不断进化，我们规划了一系列激动人心的功能和改进，为用户带来更加出色的体验',
+        termsTitle: '服务条款',
+        termsContent1: '欢迎使用常数空间！本服务条款详细说明了您在使用我们的服务时应遵守的规则和约定。',
+        termsContent2: '通过使用常数空间，您同意遵守本服务条款的所有内容。如果您不同意本服务条款的任何部分，您应立即停止使用我们的服务。',
+        termsContent3: '我们保留随时修改本服务条款的权利。修改后的条款将在网站上公布，并自公布之日起生效。',
+        termsContent4: '如果您有任何疑问或建议，请随时联系我们。',
+        privacyTitle: '隐私政策',
+        privacyContent1: '常数空间非常重视您的隐私保护。本隐私政策详细说明了我们如何收集、使用、存储和保护您的个人信息。',
+        privacyContent2: '我们不会收集、存储或分享您的任何个人数据。所有操作均在您的本地设备上完成，确保您的数据安全与隐私权益。',
+        privacyContent3: '我们采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保您的使用安全。',
+        privacyContent4: '如果您有任何疑问或建议，请随时联系我们。',
+        contactTitle: '联系我们'
+      },
+      en: {
+        welcome: 'Chang Kong Jian',
+        slogan: 'Explore the infinite possibilities of the tool paradise',
+        startUsing: 'Start Using',
+        learnMore: 'Learn More',
+        bottomDescription: 'Chang Kong Jian is committed to providing users with a safe and efficient tool experience. We always put user privacy first, and all operations are completed on local devices to ensure your data security and privacy rights.',
+        coreFeatures: 'Core Features',
+        featureLocalProcessing: 'Local Processing',
+        featureEfficientInput: 'Efficient Input',
+        featureMultilingual: 'Multilingual Support',
+        featureSecurity: 'Security Assurance',
+        featureResponsive: 'Responsive Design',
+        featurePersonalization: 'Personalized Settings',
+        tryNow: 'Try Now',
+        comparisonTitle: 'Advantage Comparison',
+        comparisonFeature: 'Features',
+        comparisonOurProduct: 'Chang Kong Jian',
+        comparisonTraditional: 'Traditional Tools',
+        comparisonPrivacy: 'Data Privacy Protection',
+        comparisonPrivacyOur: 'Local processing, no upload',
+        comparisonPrivacyTraditional: 'May upload user data',
+        comparisonEfficiency: 'Usage Efficiency',
+        comparisonEfficiencyOur: 'Intelligent and efficient, easy to operate',
+        comparisonEfficiencyTraditional: 'Single function, complex operation',
+        comparisonMultilingual: 'Multilingual Support',
+        comparisonMultilingualOur: 'Support Chinese and English switching',
+        comparisonMultilingualTraditional: 'May only support single language',
+        comparisonResponsive: 'Device Adaptation',
+        comparisonResponsiveOur: 'Adapt to various devices',
+        comparisonResponsiveTraditional: 'May only support specific devices',
+        comparisonSecurity: 'Security',
+        comparisonSecurityOur: 'Multi-layer security protection',
+        comparisonSecurityTraditional: 'Basic security measures',
+        comparisonSummary: 'Comparison Summary',
+        comparisonSummaryText: 'From the above comparison, it can be seen that Chang Kong Jian has obvious advantages in core aspects such as data privacy protection, usage efficiency, multilingual support, device adaptation and security. We are committed to providing users with a safer, more efficient and more personalized tool experience, making every use an enjoyment.',
+        testimonialsTitle: 'User Reviews',
+        testimonial1: 'Chang Kong Jian is really great! The input experience is smooth, and you don\'t have to worry about data privacy issues. Multilingual support is also very practical, recommended to everyone.',
+        testimonial1Name: 'Mr. Zhang',
+        testimonial1Title: 'Software Engineer',
+        testimonial2: 'As a translator, I often need to switch between Chinese and English. The multilingual support feature of Chang Kong Jian is very thoughtful, which greatly improves my input efficiency.',
+        testimonial2Name: 'Ms. Li',
+        testimonial2Title: 'Translator',
+        testimonial3: 'Privacy protection is well done, all data is processed locally, no need to worry about information leakage. The interface is simple and beautiful, very easy to use.',
+        testimonial3Name: 'Mr. Wang',
+        testimonial3Title: 'Data Analyst',
+        faqTitle: 'Frequently Asked Questions',
+        faq1Question: 'How does Chang Kong Jian protect my privacy?',
+        faq1Answer: 'Chang Kong Jian adopts a local processing mechanism. All input content is only processed on your device and will not be uploaded to any server. We will not collect, store or share any of your personal data to ensure your privacy security.',
+        faq2Question: 'What languages does Chang Kong Jian support?',
+        faq2Answer: 'Currently, Chang Kong Jian supports two languages: Chinese and English. You can switch languages at any time in the settings. We plan to add more language support in future versions.',
+        faq3Question: 'On which devices can Chang Kong Jian be used?',
+        faq3Answer: 'Chang Kong Jian adopts a responsive design and supports use on various devices, including computers, tablets and mobile phones. As long as your device has a browser, you can access and use Chang Kong Jian.',
+        faq4Question: 'Is Chang Kong Jian free?',
+        faq4Answer: 'Yes, Chang Kong Jian is completely free. We are committed to providing users with high-quality input tools without charging any fees or displaying advertisements in the interface.',
+        faq5Question: 'How to contact the Chang Kong Jian team?',
+        faq5Answer: 'You can contact us through the official email jonessj893@gmail.com, or click the "Contact Us" button at the bottom of the website to send a message. We will reply to your questions within 24 hours.',
+        techFeaturesTitle: 'Technical Features',
+        techModernFrontend: 'Modern Frontend Technology',
+        techModernFrontendDesc: 'Developed with HTML5, CSS3 and JavaScript ES6+, using Tailwind CSS to implement responsive design, ensuring a good experience on various devices',
+        techModularArchitecture: 'Modular Architecture',
+        techModularArchitectureDesc: 'Adopting modular design, clear code structure, easy to maintain and expand, ready for future function upgrades',
+        techPerformanceOptimization: 'Performance Optimization',
+        techPerformanceOptimizationDesc: 'After careful optimization, fast loading speed, smooth operation, even on low-configured devices can run well',
+        techSecurityAssurance: 'Security Assurance',
+        techSecurityAssuranceDesc: 'Adopting multi-layer security protection measures to prevent XSS attacks and other security threats, ensuring your use security',
+        futurePlanning: 'Future Planning',
+        futurePlanningDesc: 'Chang Kong Jian is constantly evolving. We have planned a series of exciting features and improvements to bring users a more excellent experience',
+        termsTitle: 'Terms of Service',
+        termsContent1: 'Welcome to Chang Kong Jian! These Terms of Service detail the rules and agreements you should follow when using our services.',
+        termsContent2: 'By using Chang Kong Jian, you agree to comply with all the contents of these Terms of Service. If you do not agree with any part of these Terms of Service, you should immediately stop using our services.',
+        termsContent3: 'We reserve the right to modify these Terms of Service at any time. The modified terms will be published on the website and will take effect from the date of publication.',
+        termsContent4: 'If you have any questions or suggestions, please feel free to contact us.',
+        privacyTitle: 'Privacy Policy',
+        privacyContent1: 'Chang Kong Jian attaches great importance to your privacy protection. This Privacy Policy details how we collect, use, store and protect your personal information.',
+        privacyContent2: 'We will not collect, store or share any of your personal data. All operations are completed on your local device to ensure your data security and privacy rights.',
+        privacyContent3: 'We adopt multi-layer security protection measures to prevent XSS attacks and other security threats, ensuring your use security.',
+        privacyContent4: 'If you have any questions or suggestions, please feel free to contact us.',
+        contactTitle: 'Contact Us'
+      }
+    };
+
+    // 切换语言
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      applyLanguage(lang);
+      
+      // 更新移动端语言选择按钮文本
+      const mobileCurrentLanguage = document.getElementById('mobileCurrentLanguage');
+      if (mobileCurrentLanguage) {
+        mobileCurrentLanguage.textContent = lang === 'zh' ? '中文' : 'English';
+      }
+      
+      // 保存语言设置到本地存储
+      localStorage.setItem('language', lang);
+    }
+
+    // 应用语言
+    function applyLanguage(lang) {
+      currentLanguage = lang;
+      const elements = document.querySelectorAll('[data-lang]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-lang');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    // 初始化语言
+    document.addEventListener('DOMContentLoaded', function() {
+      // 从本地存储加载语言设置
+      const savedLanguage = localStorage.getItem('language') || 'zh';
+      changeLanguage(savedLanguage);
+    });
+  </script>
+</body>
+</html>

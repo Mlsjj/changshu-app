@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常数空间 - 官方平台</title>
+  <!-- 引入Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入Font Awesome图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#7B61FF',
+            accent: '#FF61BF',
+            dark: '#14171A', // X平台主深色
+            light: '#F5F8FA', // 浅背景色
+            gray: {
+              300: '#AAB8C2',
+              400: '#8899A6',
+              500: '#657786',
+              700: '#444B54',
+              800: '#1C2023',
+              900: '#14171A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      /* 渐变文字工具类 - 匹配蓝→紫→洋红需求 */
+      .text-gradient {
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 按钮渐变背景 */
+      .bg-gradient-primary {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+      }
+      /* 通用按钮反馈 */
+      .btn-effect {
+        transition: all 0.2s ease;
+      }
+      .btn-effect:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(22, 93, 255, 0.2);
+      }
+      .btn-effect:active {
+        transform: scale(0.98);
+        box-shadow: none;
+      }
+      /* 社交图标hover渐变 */
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+      .social-hover:hover {
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        color: white !important;
+        transform: translateY(-2px);
+      }
+      /* 链接渐变下划线 */
+      .link-grad {
+        position: relative;
+      }
+      .link-grad::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-image: linear-gradient(90deg, #165DFF, #7B61FF, #FF61BF);
+        transition: width 0.3s ease;
+      }
+      .link-grad:hover::after {
+        width: 100%;
+      }
+      /* 渐入动画 */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* 动画效果 */
+      .animation-bounce {
+        animation: bounce 1s ease infinite;
+      }
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        60% { transform: translateY(-10px); }
+      }
+      
+      .animation-pulse {
+        animation: pulse 1s ease infinite;
+      }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+      
+      .animation-spin {
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .animation-fade {
+        animation: fade 1s ease infinite;
+      }
+      @keyframes fade {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      /* 缓慢脉冲动画 */
+      .animate-pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+      }
+      @keyframes pulse-slow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+      /* 主题切换过渡效果 */
+      .theme-transition {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition * {
+        transition: all 0.5s ease-in-out;
+      }
+      .theme-transition body {
+        transition: background 0.8s ease-in-out;
+      }
+      .theme-transition .bg-gradient-dark,
+      .theme-transition .bg-gradient-light {
+        transition: background 0.8s ease-in-out;
+      }
+      /* 科技感扫描线动画 */
+      .animate-scan {
+        animation: scan 8s linear infinite;
+      }
+      @keyframes scan {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+      
+      .animation-slide {
+        animation: slide 1s ease infinite;
+      }
+      @keyframes slide {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+      }
+      
+      .animation-scale {
+        animation: scale 1s ease infinite;
+      }
+      @keyframes scale {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+      }
+      /* 浮动动画 */
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        25% {
+          transform: translateY(-10px) translateX(5px);
+        }
+        50% {
+          transform: translateY(0px) translateX(10px);
+        }
+        75% {
+          transform: translateY(10px) translateX(5px);
+        }
+      }
+      /* 动画延迟 */
+      .animation-delay-1000 {
+        animation-delay: 1s;
+      }
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      .animation-delay-3000 {
+        animation-delay: 3s;
+      }
+      .animation-delay-4000 {
+        animation-delay: 4s;
+      }
+      /* 背景渐变效果 - 夜间模式 */
+      .bg-gradient-dark {
+        background: linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+        background-image: 
+          radial-gradient(circle at 25% 25%, rgba(22, 93, 255, 0.02) 1px, transparent 1px),
+          radial-gradient(circle at 75% 75%, rgba(22, 93, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(135deg, #14171A 0%, #1C2023 100%);
+        background-size: 20px 20px, 20px 20px, 100% 100%;
+      }
+      /* 背景渐变效果 - 日间模式 */
+      .bg-gradient-light {
+        background: linear-gradient(135deg, #F5F7FA 0%, #E4E7EB 100%);
+        background-image: 
+          radial-gradient(circle at 25% 25%, rgba(22, 93, 255, 0.05) 1px, transparent 1px),
+          radial-gradient(circle at 75% 75%, rgba(22, 93, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(135deg, #F5F7FA 0%, #E4E7EB 100%);
+        background-size: 20px 20px, 20px 20px, 100% 100%;
+      }
+      /* 动态蓝紫色渐变光带动画 */
+      .section-inner-shadow {
+        position: relative;
+        overflow: hidden;
+      }
+      /* 内阴影效果 */
+      .section-inner-shadow::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+        z-index: 1;
+      }
+      /* 微妙的动态光带效果 */
+      .section-inner-shadow::after {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 300%;
+        height: 300%;
+        background: linear-gradient(
+          45deg,
+          transparent 0%,
+          rgba(22, 93, 255, 0.02) 25%,
+          rgba(123, 97, 255, 0.02) 50%,
+          rgba(255, 97, 191, 0.02) 75%,
+          transparent 100%
+        );
+        animation: lightFlow 120s linear infinite;
+        pointer-events: none;
+        filter: blur(120px);
+        z-index: 0;
+      }
+      @keyframes lightFlow {
+        0% {
+          transform: rotate(0deg) translateX(0) translateY(0);
+        }
+        100% {
+          transform: rotate(360deg) translateX(10%) translateY(10%);
+        }
+      }
+      
+      /* 板块间细线条分隔 */
+      section {
+        position: relative;
+      }
+      section:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(22, 93, 255, 0.3) 25%,
+          rgba(123, 97, 255, 0.3) 50%,
+          rgba(255, 97, 191, 0.3) 75%,
+          transparent 100%
+        );
+      }
+
+      /* 导航栏滚动效果 */
+      nav.scrolled {
+        background-color: rgba(20, 23, 26, 0.95);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* 开屏动画 */
+      #splashScreen {
+        animation: fadeOut 0.8s ease forwards 0.8s;
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; pointer-events: none; }
+      }
+      
+      /* 弹窗动画 */
+      .modal-fade-in {
+        animation: modalFadeIn 0.3s ease forwards;
+      }
+      .modal-fade-out {
+        animation: modalFadeOut 0.3s ease forwards;
+      }
+      @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes modalFadeOut {
+        from { opacity: 1; transform: scale(1); }
+        to { opacity: 0; transform: scale(0.9); }
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-dark text-white min-h-screen flex flex-col">
+  <!-- 开屏动画 -->
+  <div id="splashScreen" class="fixed inset-0 bg-dark flex items-center justify-center z-50">
+    <div class="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center animate-pulse">
+      <i class="fa fa-wrench text-white text-2xl"></i>
+    </div>
+  </div>
+
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-transparent transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center mr-3">
+          <i class="fa fa-wrench text-white"></i>
+        </div>
+        <span class="text-xl font-bold text-gradient">常数空间</span>
+      </div>
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#home" class="text-gray-300 hover:text-white transition-colors link-grad">首页</a>
+        <a href="#features" class="text-gray-300 hover:text-white transition-colors link-grad">核心功能</a>
+        <a href="#comparison" class="text-gray-300 hover:text-white transition-colors link-grad">优势对比</a>
+        <a href="#architecture" class="text-gray-300 hover:text-white transition-colors link-grad">技术架构</a>
+        <a href="#roadmap" class="text-gray-300 hover:text-white transition-colors link-grad">未来规划</a>
+        <a href="tools.html" class="bg-gradient-primary text-white px-6 py-2 rounded-full btn-effect">工具合集</a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobileMenuBtn" class="text-gray-300 hover:text-white text-2xl">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <!-- 移动端菜单 -->
+    <div id="mobileMenu" class="md:hidden hidden bg-gray-900 border-t border-gray-800">
+      <div class="container mx-auto px-4 py-2">
+        <div class="flex flex-col space-y-3 py-3">
+          <a href="#home" class="text-gray-300 hover:text-white py-2 transition-colors">首页</a>
+          <a href="#features" class="text-gray-300 hover:text-white py-2 transition-colors">核心功能</a>
+          <a href="#comparison" class="text-gray-300 hover:text-white py-2 transition-colors">优势对比</a>
+          <a href="#architecture" class="text-gray-300 hover:text-white py-2 transition-colors">技术架构</a>
+          <a href="#roadmap" class="text-gray-300 hover:text-white py-2 transition-colors">未来规划</a>
+          <a href="tools.html" class="bg-gradient-primary text-white px-6 py-2 rounded-full btn-effect text-center">工具合集</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="flex-grow">
+    <!-- 首页海报 -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative section-inner-shadow">
+      <div class="container mx-auto px-4 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span class="text-gradient">常数空间</span>
+              <br>
+              <span class="text-white">探索无限可能的工具乐园</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl">
+              常数空间致力于为用户提供安全、高效的工具体验，我们始终将用户隐私放在首位，所有操作均在本地设备完成，确保您的数据安全与隐私权益。
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+              <a href="tools.html" class="bg-gradient-primary text-white px-8 py-3 rounded-full btn-effect text-center">
+                开始使用
+              </a>
+              <a href="#features" class="border border-gray-700 text-gray-300 hover:border-primary hover:text-primary px-8 py-3 rounded-full btn-effect text-center transition-colors">
+                了解更多
+              </a>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="w-full h-80 md:h-96 bg-gradient-primary/10 rounded-2xl flex items-center justify-center animate-float">
+              <div class="text-center">
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center">
+                  <i class="fa fa-wrench text-white text-4xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">常数空间</h3>
+                <p class="text-gray-400">您的专属工具集</p>
+              </div>
+            </div>
+            <!-- 装饰元素 -->
+            <div class="absolute -top-4 -right-4 w-16 h-16 bg-primary/20 rounded-full blur-xl animate-pulse-slow"></div>
+            <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-secondary/20 rounded-full blur-xl animate-pulse-slow animation-delay-1000"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心功能 -->
+    <section id="features" class="py-20 section-inner-shadow">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">核心功能</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">常数空间提供了一系列强大的功能，为您的工作和生活带来便利</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 功能卡片 1 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-shield text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">本地处理</h3>
+            <p class="text-gray-400">所有数据均在本地设备处理，不上传至任何服务器，确保您的隐私安全</p>
+          </div>
+          <!-- 功能卡片 2 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-bolt text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">高效输入</h3>
+            <p class="text-gray-400">智能输入提示，实时预览结果，让您的操作更加流畅高效</p>
+          </div>
+          <!-- 功能卡片 3 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-globe text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">多语言支持</h3>
+            <p class="text-gray-400">支持中英文切换，为全球用户提供友好的使用体验</p>
+          </div>
+          <!-- 功能卡片 4 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-lock text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">安全保障</h3>
+            <p class="text-gray-400">多层安全防护，防止XSS攻击，确保您的使用安全</p>
+          </div>
+          <!-- 功能卡片 5 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-mobile text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">响应式设计</h3>
+            <p class="text-gray-400">适配各种设备屏幕，在手机、平板和电脑上均有良好表现</p>
+          </div>
+          <!-- 功能卡片 6 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-primary/50 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-sliders text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">个性化设置</h3>
+            <p class="text-gray-400">支持主题切换，满足您的个性化需求</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 优势对比 -->
+    <section id="comparison" class="py-20 section-inner-shadow">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">优势对比</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">与传统工具相比，常数空间具有以下优势</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[600px] border-collapse">
+            <thead>
+              <tr class="border-b border-gray-800">
+                <th class="py-4 px-6 text-left text-gray-400 font-medium">功能特性</th>
+                <th class="py-4 px-6 text-left text-primary font-medium">常数空间</th>
+                <th class="py-4 px-6 text-left text-gray-400 font-medium">传统工具</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-800 hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">数据隐私保护</td>
+                <td class="py-4 px-6 text-green-400">本地处理，不上传</td>
+                <td class="py-4 px-6 text-red-400">可能上传用户数据</td>
+              </tr>
+              <tr class="border-b border-gray-800 hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">使用效率</td>
+                <td class="py-4 px-6 text-green-400">智能高效，操作便捷</td>
+                <td class="py-4 px-6 text-red-400">功能单一，操作复杂</td>
+              </tr>
+              <tr class="border-b border-gray-800 hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">多语言支持</td>
+                <td class="py-4 px-6 text-green-400">支持中英文切换</td>
+                <td class="py-4 px-6 text-red-400">可能仅支持单一语言</td>
+              </tr>
+              <tr class="border-b border-gray-800 hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">设备适配</td>
+                <td class="py-4 px-6 text-green-400">全设备响应式设计</td>
+                <td class="py-4 px-6 text-red-400">可能仅支持特定设备</td>
+              </tr>
+              <tr class="border-b border-gray-800 hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">安全保障</td>
+                <td class="py-4 px-6 text-green-400">多层安全防护</td>
+                <td class="py-4 px-6 text-red-400">安全措施可能不足</td>
+              </tr>
+              <tr class="hover:bg-gray-800/30 transition-colors">
+                <td class="py-4 px-6 text-white">个性化设置</td>
+                <td class="py-4 px-6 text-green-400">支持主题切换</td>
+                <td class="py-4 px-6 text-red-400">可能缺乏个性化选项</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技术架构 -->
+    <section id="architecture" class="py-20 section-inner-shadow">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">技术架构</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">常数空间采用现代化的技术栈，确保性能和可靠性</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 前端层 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-code text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">前端层</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>HTML5 + CSS3 + JavaScript</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>Tailwind CSS</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>Font Awesome</span>
+              </li>
+            </ul>
+          </div>
+          <!-- 功能层 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-cogs text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">功能层</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>本地数据处理</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>实时预览</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>智能输入提示</span>
+              </li>
+            </ul>
+          </div>
+          <!-- 安全层 -->
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <i class="fa fa-shield text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">安全层</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>本地存储加密</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>XSS防护</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fa fa-check text-green-400"></i>
+                <span>隐私保护</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 未来规划 -->
+    <section id="roadmap" class="py-20 section-inner-shadow">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">未来规划</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">我们将持续完善和扩展常数空间的功能</p>
+        </div>
+        <div class="space-y-8">
+          <!-- 规划项 1 -->
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-primary font-bold">1</span>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-white mb-2">更多工具集成</h3>
+              <p class="text-gray-400">计划集成更多实用工具，满足用户多样化的需求</p>
+            </div>
+            <div class="bg-primary/20 text-primary px-4 py-1 rounded-full text-sm">
+              进行中
+            </div>
+          </div>
+          <!-- 规划项 2 -->
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-primary font-bold">2</span>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-white mb-2">用户自定义工具</h3>
+              <p class="text-gray-400">允许用户根据自己的需求创建和定制工具</p>
+            </div>
+            <div class="bg-gray-800 text-gray-400 px-4 py-1 rounded-full text-sm">
+              计划中
+            </div>
+          </div>
+          <!-- 规划项 3 -->
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-primary font-bold">3</span>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-white mb-2">跨设备同步</h3>
+              <p class="text-gray-400">支持用户在不同设备间同步设置和数据</p>
+            </div>
+            <div class="bg-gray-800 text-gray-400 px-4 py-1 rounded-full text-sm">
+              计划中
+            </div>
+          </div>
+          <!-- 规划项 4 -->
+          <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-primary font-bold">4</span>
+            </div>
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-white mb-2">社区贡献</h3>
+              <p class="text-gray-400">开放API，鼓励社区贡献和扩展</p>
+            </div>
+            <div class="bg-gray-800 text-gray-400 px-4 py-1 rounded-full text-sm">
+              计划中
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 行动召唤 -->
+    <section class="py-20 section-inner-shadow">
+      <div class="container mx-auto px-4">
+        <div class="bg-gradient-primary/10 rounded-2xl p-8 md:p-12 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">开始使用常数空间</h2>
+          <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+            常数空间致力于为用户提供安全、高效的工具体验，我们始终将用户隐私放在首位，所有操作均在本地设备完成，确保您的数据安全与隐私权益。
+          </p>
+          <a href="tools.html" class="bg-gradient-primary text-white px-8 py-3 rounded-full btn-effect inline-block">
+            立即尝试
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-900 border-t border-gray-800 py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center mb-4 md:mb-0">
+          <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center mr-3">
+            <i class="fa fa-wrench text-white"></i>
+          </div>
+          <span class="text-xl font-bold text-gradient">常数空间</span>
+        </div>
+        <div class="flex space-x-6 mb-4 md:mb-0">
+          <a href="#home" class="text-gray-400 hover:text-white transition-colors link-grad">首页</a>
+          <a href="#features" class="text-gray-400 hover:text-white transition-colors link-grad">核心功能</a>
+          <a href="#comparison" class="text-gray-400 hover:text-white transition-colors link-grad">优势对比</a>
+          <a href="#architecture" class="text-gray-400 hover:text-white transition-colors link-grad">技术架构</a>
+          <a href="#roadmap" class="text-gray-400 hover:text-white transition-colors link-grad">未来规划</a>
+          <a href="tools.html" class="text-gray-400 hover:text-white transition-colors link-grad">工具合集</a>
+        </div>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-primary hover:text-primary transition-colors">
+            <i class="fa fa-github"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-primary hover:text-primary transition-colors">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 hover:border-primary hover:text-primary transition-colors">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="text-gray-500 text-sm mb-4 md:mb-0">
+          &copy; 2026 常数空间 | UNI工作室. 保留所有权利.
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" onclick="showTerms()" class="text-gray-500 hover:text-white text-sm transition-colors link-grad">服务条款</a>
+          <a href="#" onclick="showPrivacy()" class="text-gray-500 hover:text-white text-sm transition-colors link-grad">隐私政策</a>
+          <a href="#" onclick="showContact()" class="text-gray-500 hover:text-white text-sm transition-colors link-grad">联系我们</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 服务条款弹窗 -->
+  <div id="termsModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white">服务条款</h3>
+          <button onclick="closeTerms()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <p>欢迎使用常数空间！本服务条款详细说明了您在使用我们的服务时应遵守的规则和约定。</p>
+          <p>通过使用常数空间，您同意遵守本服务条款的所有内容。如果您不同意本服务条款的任何部分，您应立即停止使用我们的服务。</p>
+          <p>我们保留随时修改本服务条款的权利。修改后的条款将在网站上公布，并自公布之日起生效。</p>
+          <p>如果您有任何疑问或建议，请随时联系我们。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐私政策弹窗 -->
+  <div id="privacyModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white">隐私政策</h3>
+          <button onclick="closePrivacy()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4 text-gray-300">
+          <p>常数空间非常重视您的隐私保护。本隐私政策详细说明了我们如何收集、使用、存储和保护您的个人信息。</p>
+          <p>我们不会收集、存储或分享您的任何个人数据。所有操作均在您的本地设备上完成，确保您的数据安全与隐私权益。</p>
+          <p>我们采用多层安全防护措施，防止XSS攻击和其他安全威胁，确保您的使用安全。</p>
+          <p>如果您有任何疑问或建议，请随时联系我们。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 联系我们弹窗 -->
+  <div id="contactModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 rounded-2xl border border-gray-700 max-w-md w-full mx-4">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white">联系我们</h3>
+          <button onclick="closeContact()" class="text-gray-400 hover:text-white">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+              <i class="fa fa-envelope text-primary text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">邮箱</h4>
+              <p class="text-gray-400">jonessj893@gmail.com</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
+              <i class="fa fa-github text-secondary text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">GitHub</h4>
+              <p class="text-gray-400">@changkongjian</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center">
+              <i class="fa fa-twitter text-accent text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold mb-1">Twitter</h4>
+              <p class="text-gray-400">@changkongjian</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // 开屏动画
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const splashScreen = document.getElementById('splashScreen');
+        if (splashScreen) {
+          splashScreen.style.display = 'none';
+        }
+      }, 1600); // 与CSS动画持续时间保持一致
+
+      // 导航栏滚动效果
+      const nav = document.querySelector('nav');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      // 移动端触摸优化
+      if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+      }
+    });
+
+    // 移动端菜单切换
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // 服务条款弹窗
+    function showTerms() {
+      const termsModal = document.getElementById('termsModal');
+      termsModal.classList.remove('hidden');
+      termsModal.classList.add('modal-fade-in');
+    }
+
+    function closeTerms() {
+      const termsModal = document.getElementById('termsModal');
+      termsModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        termsModal.classList.add('hidden');
+        termsModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 隐私政策弹窗
+    function showPrivacy() {
+      const privacyModal = document.getElementById('privacyModal');
+      privacyModal.classList.remove('hidden');
+      privacyModal.classList.add('modal-fade-in');
+    }
+
+    function closePrivacy() {
+      const privacyModal = document.getElementById('privacyModal');
+      privacyModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        privacyModal.classList.add('hidden');
+        privacyModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 联系我们弹窗
+    function showContact() {
+      const contactModal = document.getElementById('contactModal');
+      contactModal.classList.remove('hidden');
+      contactModal.classList.add('modal-fade-in');
+    }
+
+    function closeContact() {
+      const contactModal = document.getElementById('contactModal');
+      contactModal.classList.add('modal-fade-out');
+      setTimeout(() => {
+        contactModal.classList.add('hidden');
+        contactModal.classList.remove('modal-fade-in', 'modal-fade-out');
+      }, 300);
+    }
+
+    // 移动端菜单按钮点击事件
+    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
+  </script>
+</body>
+</html>
